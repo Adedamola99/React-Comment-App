@@ -1,7 +1,7 @@
 import React from 'react';
 
 const SendReply = (props) => {
-  const { handleSubmit, text, setText } = props;
+  const { handleSubmit, text, setText, submitLabel } = props;
   const isTextAreaDisabled = text.length === 0;
 
   const onSubmit = (e) => {
@@ -19,7 +19,7 @@ const SendReply = (props) => {
             value={text}
             onChange={e => setText(e.target.value)}
       />
-      <button className='send' disabled={isTextAreaDisabled}>SEND</button>
+      <button className='send' disabled={isTextAreaDisabled}>{submitLabel}</button>
     </form>
   )
 }

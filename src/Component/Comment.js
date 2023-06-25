@@ -1,12 +1,9 @@
 import React from 'react'
 
 const Comment = (props) => {
-  const { image, name, date, content, replyData, setIsReplying, id } = props;
+  const { image, name, date, content, replyData, setActiveComment, id } = props;
 
-  const handleReply = (id) => {
-    setIsReplying(true)
-    console.log("pressed");
-  }
+  
 
 
   const UserReply = replyData.map(replies => {
@@ -84,7 +81,7 @@ const Comment = (props) => {
 
             <div className="reply-box">
               <img src="./images/icon-reply.svg" alt=""/>
-              <p className="reply-text" onClick={() => handleReply(id)}>Reply</p>
+              <p className="reply-text" onClick={() => setActiveComment({ id: id })}>Reply</p>
             </div>
           </div> 
                    

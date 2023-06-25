@@ -9,11 +9,40 @@ function App() {
   const [allData, setAllData] = useState([]);
   const [text, setText] = useState("");
   const [sendData, setSendData] = useState([]);
-  const [isreplying, setIsReplying] = useState(false);
+  const [activeComment, setActiveComment] = useState(null);
 
   useEffect(() => {
     setAllData(data.comments)
   }, [])
+
+  const handleReplyComment = (commentId) => {
+    setAllData(prevComment => {
+      return prevComment.map(comment => {
+        if (comment.id === commentId) {
+          return {
+            ...comment,
+            replies: 
+            [
+              ...comment.replies, 
+              {
+                id: nanoid(),
+                content: text,
+                createdAt: new Date().toLocaleString(),
+                score: 0,
+                user: {
+                  image: { 
+                    png: "./images/avatars/image-juliusomo.png",
+                  },
+                }
+              }
+            ]
+          };
+        }
+        return comment;
+      })
+    })
+
+  }
   
 
   const addComment = (text) => {
@@ -45,24 +74,24 @@ function App() {
   
   const itemData = allData.map(data => {
     return (
-      <div key = {data.id}>
+      <div className="container" key = {data.id}>
         <Comment
-          id = {nanoid()}
+          id = {data.id}
           name = {data.user.username}
           date = {data.createdAt}
           content = {data.content}
           image = {data.user.image.png}
           score = {data.score}
           replyData = {data.replies}
-          setIsReplying = {setIsReplying}
+          setActiveComment = {setActiveComment}
         />
 
-      {isreplying && data.id && (
+      {activeComment && activeComment.id === data.id && (
         <SendReply 
-          handleSubmit= {addComment}
+          handleSubmit= {handleReplyComment}
           text = {text}
           setText= {setText}
-          submitLabel = "SEND"
+          submitLabel = "REPLY"
         />
       )}
       </div>

@@ -27,7 +27,7 @@ body {
 .comment, .comment-replies, .commentform {
     background: var(--White);
     padding: 1.2em;
-    border-radius: 1em;
+    border-radius: .7em;
     display: flex;
     align-items: flex-start;
     gap: 15px;
@@ -42,13 +42,25 @@ body {
     gap: 20px;
 }
 
-.comment-replies {
-    margin-left: 3.5em;
+.comment-box {
+    display: flex;
+    flex-direction: column;
 }
 
-.comment-replies-box {
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.comment-replies {
+    margin-left: 2.5em;   
+}
+
+
+.replies-box {
     border-left: 3px solid #C2C7C7;
-    margin-left: 5.5em;
+    margin-left: 3.5em;
     margin-top: 1em;
     display: flex;
     flex-direction: column;
@@ -232,6 +244,14 @@ body {
 
 .delete-text, .edit-text {
     font-weight: bold;
+}
+
+.comment-replies-box {
+    display: flex;
+    flex-direction: column;
+    border-left: #C2C7C7 4px solid;
+    gap: 10px;
+    margin-left: 50px;
 }
 
 
