@@ -3,8 +3,6 @@ import React from 'react'
 const Comment = (props) => {
   const { image, name, date, content, replyData, setActiveComment, id } = props;
 
-  
-
 
   const UserReply = replyData.map(replies => {
 

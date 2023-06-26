@@ -7,15 +7,18 @@ import { nanoid } from 'nanoid';
 
 function App() { 
   const [allData, setAllData] = useState([]);
-  const [text, setText] = useState("");
+  const [text, setText] = useState({comment: ""});
   const [sendData, setSendData] = useState([]);
   const [activeComment, setActiveComment] = useState(null);
+
+  console.log(text);
 
   useEffect(() => {
     setAllData(data.comments)
   }, [])
 
-  const handleReplyComment = (commentId) => {
+  const handleReplyComment = (commentId, e) => {
+    e.preventDefault();
     setAllData(prevComment => {
       return prevComment.map(comment => {
         if (comment.id === commentId) {
@@ -45,13 +48,14 @@ function App() {
   }
   
 
-  const addComment = (text) => {
+  const addComment = (e) => {
+    e.preventDefault();
     setSendData(prev => {
       return[
         ...prev,
          {
           id: nanoid(),
-          content: text,
+          content: text.comment.comment,
           createdAt: new Date().toLocaleString(),
           score: 0,
           user: {
@@ -65,6 +69,19 @@ function App() {
         }
       ]
     })
+  }
+
+  const handleChange = (e) => {
+    setText(prev => {
+      return {
+        ...prev,
+        comment: e.target.value
+      }
+    })
+  }
+
+  const handleCommentReplyChange = (e) => {
+    console.log("CHANGED");
   }
 
   const deleteComment = (data,id) => {
@@ -90,7 +107,7 @@ function App() {
         <SendReply 
           handleSubmit= {handleReplyComment}
           text = {text}
-          setText= {setText}
+          handleChange = {handleCommentReplyChange}
           submitLabel = "REPLY"
         />
       )}
@@ -122,8 +139,8 @@ function App() {
 
       <SendReply 
         handleSubmit= {addComment}
+        handleChange = {handleChange}
         text = {text}
-        setText= {setText}
         submitLabel = "SEND"
       />
     </div>
