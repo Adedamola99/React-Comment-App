@@ -1,27 +1,29 @@
 import React from 'react';
 
 const SendReply = (props) => {
-  const { handleSubmit, text, submitLabel, handleChange } = props;
+  const { handleSubmit, text, setText, submitLabel } = props;
   const isTextAreaDisabled = text.length === 0;
 
-  // const onSubmit = (e) => {
-  //   e.preventDefault();
-  //   handleSubmit(text)
-  //   setText("")
-  // }
+  const onSubmit = (e) => {
+    e.preventDefault();
+    if (text.trim() !== "") {
+      handleSubmit(text)
+      setText("")
+    }
+  }
 
   return (
-    <form  className="reply">
+    <form onSubmit={onSubmit} className="reply">
       <img className='avatar' src='images/avatars/image-juliusomo.png' alt="" />
       <textarea
             className='text-area'
             placeholder='Add Comment...'
             value={text}
-            onChange={handleChange}
+            onChange={e => setText(e.target.value)}
+            
       />
       <button 
-        className='send' 
-        onClick={handleSubmit} 
+        className='send'
         disabled={isTextAreaDisabled}
       >
         {submitLabel}

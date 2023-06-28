@@ -1,24 +1,51 @@
 import React, { useState, useEffect } from "react";
 import Comment from "./Component/Comment";
+import SendCommentReply from "./Component/SendCommentReply"
 import SendReply from "./Component/SendReply";
 import ReplyFormat from "./Component/ReplyFormat";
 import data from "./data.json"
 import { nanoid } from 'nanoid';
 
 function App() { 
-  const [allData, setAllData] = useState([]);
-  const [text, setText] = useState({comment: ""});
-  const [sendData, setSendData] = useState([]);
+  const [text, setText] = useState("");
+  const [replyContent, setReplyContent] = useState("");
   const [activeComment, setActiveComment] = useState(null);
 
-  console.log(text);
+  const [allData, setAllData] = useState(
+    () => JSON.parse(localStorage.getItem("comments")) || []
+  );
+    
+  const [sendData, setSendData] = useState(
+    () => JSON.parse(localStorage.getItem("sendData")) || []
+  );
+
+  useEffect(() => {
+    localStorage.setItem('comments', JSON.stringify(allData))
+  }, [allData])
+
+  useEffect(() => {
+    localStorage.setItem('sendData', JSON.stringify(sendData))
+  }, [sendData])
+
 
   useEffect(() => {
     setAllData(data.comments)
   }, [])
 
-  const handleReplyComment = (commentId, e) => {
-    e.preventDefault();
+  const addReply = (commentId, replyContent) => {
+    const newReply = {
+      id: nanoid(),
+      replyingTo: "replyTo",
+      content: replyContent,
+      createdAt: new Date().toLocaleString(),
+      score: 0,
+      user: {
+        image: { 
+          png: "./images/avatars/image-juliusomo.png",
+        },
+      }
+    }
+
     setAllData(prevComment => {
       return prevComment.map(comment => {
         if (comment.id === commentId) {
@@ -26,36 +53,24 @@ function App() {
             ...comment,
             replies: 
             [
-              ...comment.replies, 
-              {
-                id: nanoid(),
-                content: text,
-                createdAt: new Date().toLocaleString(),
-                score: 0,
-                user: {
-                  image: { 
-                    png: "./images/avatars/image-juliusomo.png",
-                  },
-                }
-              }
-            ]
+              ...comment.replies, newReply ]
           };
         }
         return comment;
       })
     })
-
+    setActiveComment(false)
+    
   }
   
 
-  const addComment = (e) => {
-    e.preventDefault();
+  const addComment = () => {
     setSendData(prev => {
       return[
         ...prev,
          {
           id: nanoid(),
-          content: text.comment.comment,
+          content: text,
           createdAt: new Date().toLocaleString(),
           score: 0,
           user: {
@@ -69,19 +84,6 @@ function App() {
         }
       ]
     })
-  }
-
-  const handleChange = (e) => {
-    setText(prev => {
-      return {
-        ...prev,
-        comment: e.target.value
-      }
-    })
-  }
-
-  const handleCommentReplyChange = (e) => {
-    console.log("CHANGED");
   }
 
   const deleteComment = (data,id) => {
@@ -104,11 +106,12 @@ function App() {
         />
 
       {activeComment && activeComment.id === data.id && (
-        <SendReply 
-          handleSubmit= {handleReplyComment}
-          text = {text}
-          handleChange = {handleCommentReplyChange}
-          submitLabel = "REPLY"
+        <SendCommentReply 
+          id = {data.id}
+          replyTo = {data.user.username}
+          onReply = {addReply}
+          replyContent = {replyContent}
+          setReplyContent = {setReplyContent}
         />
       )}
       </div>
@@ -139,8 +142,8 @@ function App() {
 
       <SendReply 
         handleSubmit= {addComment}
-        handleChange = {handleChange}
         text = {text}
+        setText = {setText}
         submitLabel = "SEND"
       />
     </div>
