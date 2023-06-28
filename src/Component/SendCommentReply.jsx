@@ -7,7 +7,8 @@ const SendReply = (props) => {
   const onSubmit = (e) => {
     e.preventDefault();
     if (replyContent.trim() !== "") {
-      onReply(id, replyContent)
+      const replyingTo = replyTo
+      onReply(id, replyContent, replyingTo)
       setReplyContent("");
     }
   }

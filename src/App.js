@@ -32,10 +32,12 @@ function App() {
     setAllData(data.comments)
   }, [])
 
-  const addReply = (commentId, replyContent) => {
+  //ADD REPLIES TO COMMENTS
+
+  const addReply = (commentId, replyContent, replyingTo) => {
     const newReply = {
       id: nanoid(),
-      replyingTo: "replyTo",
+      replyingTo: replyingTo ,
       content: replyContent,
       createdAt: new Date().toLocaleString(),
       score: 0,
@@ -43,6 +45,7 @@ function App() {
         image: { 
           png: "./images/avatars/image-juliusomo.png",
         },
+        username: "juliusomo"
       }
     }
 
@@ -59,10 +62,12 @@ function App() {
         return comment;
       })
     })
+
     setActiveComment(false)
     
   }
   
+  //ADD NEW COMMENT 
 
   const addComment = () => {
     setSendData(prev => {
@@ -86,10 +91,6 @@ function App() {
     })
   }
 
-  const deleteComment = (data,id) => {
-    data(prevData => prevData.filter(item => item.id !== id));
-  }
-
   
   const itemData = allData.map(data => {
     return (
@@ -103,6 +104,7 @@ function App() {
           score = {data.score}
           replyData = {data.replies}
           setActiveComment = {setActiveComment}
+          setAllData = {setAllData}
         />
 
       {activeComment && activeComment.id === data.id && (
@@ -133,7 +135,6 @@ function App() {
             text = {data.content}
             image = {data.user.image.png}
             score = {data.score}
-            deleteComment = {deleteComment}
             sendData = {sendData}
             setSendData = {setSendData}
           /> 

@@ -2,9 +2,15 @@ import React, { useState } from 'react'
 import Update from './Update';
 
 const NewCommentFormat = (props) => {
-  const { name, date, text, score, image, id, deleteComment, setSendData} = props;
+  const { name, date, text, score, image, id, setSendData} = props;
   const [edit, setEdit] = useState(false);
   const [editcomment, setEditComment] = useState({value: text})
+
+  const deleteComment = (id) => {
+    setSendData(prevData => prevData.filter(item => console.log(item.id !== id)));
+    console.log("pressed");
+    console.log(id);
+  }
 
   const handleEditing = (id) => {
     setEdit(true);
@@ -50,7 +56,7 @@ const NewCommentFormat = (props) => {
           <div className="action-container">
             <div className='action-box'>
               <img src="./images/icon-delete.svg" alt="" className='deleteIcon'/>
-              <p className='delete-text' onClick={() => deleteComment(setSendData, id)}>Delete</p>
+              <p className='delete-text' onClick={() => deleteComment(id)}>Delete</p>
             </div>
     
             <div className='action-box'>

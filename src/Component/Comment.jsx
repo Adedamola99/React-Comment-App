@@ -1,8 +1,13 @@
 import React from 'react'
 
 const Comment = (props) => {
-  const { image, name, date, content, replyData, setActiveComment, id } = props;
+  const { image, name, date, content, replyData, setActiveComment, id, setAllData } = props;
 
+  const deleteComment = (id) => {
+    setAllData(prevData => prevData.filter(item => console.log(item.id !== id)));
+    console.log("pressed");
+    console.log(id);
+  }
 
   const UserReply = replyData.map(replies => {
 
@@ -32,7 +37,7 @@ const Comment = (props) => {
         <div className="action-container">
           <div className='action-box'>
             <img src="./images/icon-delete.svg" alt="" className='deleteIcon'/>
-            <p className='delete-text'>Delete</p>
+            <p className='delete-text' onClick={() => deleteComment(replies.id)}>Delete</p>
           </div>
 
           <div className='action-box'>
