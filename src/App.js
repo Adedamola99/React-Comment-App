@@ -91,6 +91,24 @@ function App() {
     })
   }
 
+  // Delete Comment
+
+  const deleteComment = (id) => {
+    setSendData(prevData => prevData.filter(item => item.id !== id));
+  }
+
+  // Delete ReplyComment
+  const deleteReplyComment = (commentId, replyId) => {
+    const updatedComment = [...allData].map((item) => {
+      if (item.id === commentId) {
+        item.replies = item.replies.filter((reply) => reply.id !== replyId)
+      }
+      return item
+    })
+
+    setAllData(updatedComment)
+  }
+
   
   const itemData = allData.map(data => {
     return (
@@ -104,7 +122,7 @@ function App() {
           score = {data.score}
           replyData = {data.replies}
           setActiveComment = {setActiveComment}
-          setAllData = {setAllData}
+          deleteReplyComment = {deleteReplyComment}
         />
 
       {activeComment && activeComment.id === data.id && (
@@ -125,10 +143,10 @@ function App() {
     <div className='box'>
       {itemData}
 
-      {sendData.length > 0 && sendData.map((data, index) => {
+      {sendData.length > 0 && sendData.map((data) => {
         return (
           <ReplyFormat 
-            key = {index}
+            key = {data.id}
             id = {data.id} 
             name = {data.user.username}
             date = {data.createdAt}
@@ -137,6 +155,7 @@ function App() {
             score = {data.score}
             sendData = {sendData}
             setSendData = {setSendData}
+            deleteComment = {deleteComment}
           /> 
         )
       })}

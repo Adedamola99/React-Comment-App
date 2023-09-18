@@ -2,15 +2,9 @@ import React, { useState } from 'react'
 import Update from './Update';
 
 const NewCommentFormat = (props) => {
-  const { name, date, text, score, image, id, setSendData} = props;
+  const { name, date, text, score, image, id, setSendData, deleteComment} = props;
   const [edit, setEdit] = useState(false);
   const [editcomment, setEditComment] = useState({value: text})
-
-  const deleteComment = (id) => {
-    setSendData(prevData => prevData.filter(item => console.log(item.id !== id)));
-    console.log("pressed");
-    console.log(id);
-  }
 
   const handleEditing = (id) => {
     setEdit(true);
@@ -37,7 +31,7 @@ const NewCommentFormat = (props) => {
   const displayUpdate = edit && <Update id={id} value={editcomment.value} handleChange={handleChange} handleUpdate ={handleUpdate}/>
 
   return (
-    <div className="commentform" key={id}>
+    <div className="commentform">
       <div className="count">
         <button className= "add-icon" ><img src="./images/icon-plus.svg" alt="add-icon"/></button>
         <p className="count-number">{score}</p>
