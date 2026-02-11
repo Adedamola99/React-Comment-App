@@ -2,14 +2,14 @@
 
 A simple and interactive comment system built with React, allowing users to post, view, and delete comments in real time. This project is ideal for learning React fundamentals like component state, props, forms, and list rendering.
 
-🔗 Live Demo: https://react-comment-app-tau.vercel.app
+🔗 Live Demo: 
+https://react-comment-app-tau.vercel.app
 
 ⸻
 
 🚀 Features
 
 ✅ Add new comments
-
 ✅ View a list of comments
 ✅ Delete existing comments
 ✔️ Real-time UI updates
