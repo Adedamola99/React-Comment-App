@@ -9,6 +9,7 @@ A simple and interactive comment system built with React, allowing users to post
 🚀 Features
 
 ✅ Add new comments
+
 ✅ View a list of comments
 ✅ Delete existing comments
 ✔️ Real-time UI updates
