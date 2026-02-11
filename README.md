@@ -10,17 +10,24 @@ https://react-comment-app-tau.vercel.app
 🚀 Features
 
 ✅ Add new comments
+
 ✅ View a list of comments
+
 ✅ Delete existing comments
-✔️ Real-time UI updates
+
+✔️ Real-time UI update
+
 ✔️ Built with React and modern JavaScript
 
 ⸻
 
 🛠️ Built With
 	•	React – UI Library
+
 	•	JavaScript (ES6+)
+
 	•	CSS – Styling
+
 	•	Vercel – Deployment platform
 
 ⸻
