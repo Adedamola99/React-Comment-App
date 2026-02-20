@@ -1,0 +1,153 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    font-family: "DM Sans", sans-serif;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: "Playfair Display", serif;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center gap-2 px-4 py-2 rounded-lg font-semibold text-sm transition-all duration-150 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed;
+  }
+  .btn:hover:not(:disabled) {
+    @apply opacity-90;
+  }
+
+  .btn-primary {
+    @apply bg-ember text-white;
+  }
+  .btn-secondary {
+    @apply bg-cream text-ink border border-border;
+  }
+  .btn-ocean {
+    @apply bg-ocean text-white;
+  }
+  .btn-violet {
+    @apply bg-violet text-white;
+  }
+  .btn-ghost {
+    @apply bg-transparent text-muted border border-border;
+  }
+  .btn-danger {
+    @apply bg-red-600 text-white;
+  }
+  .btn-sm {
+    @apply px-3 py-1.5 text-xs;
+  }
+  .btn-lg {
+    @apply px-6 py-3.5 text-base;
+  }
+
+  .card {
+    @apply bg-white border border-border rounded-xl p-6 shadow-sm;
+  }
+
+  .badge {
+    @apply inline-block px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wide;
+  }
+
+  .input-field {
+    @apply w-full bg-white border border-border rounded-lg px-3.5 py-2.5 text-sm text-ink outline-none transition-colors focus:border-ember;
+  }
+
+  .turn-card {
+    @apply border-l-4 pl-4 pr-3 py-3 rounded-r-lg bg-cream;
+  }
+  .phase-pill {
+    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide;
+  }
+  .stat-pill {
+    @apply bg-cream border border-border rounded-lg p-3 text-center;
+  }
+  .motion-display {
+    @apply font-display text-xl italic text-ink px-5 py-4 border-l-4 border-gold bg-cream rounded-r-lg leading-relaxed;
+  }
+  .duel-list-card {
+    @apply bg-white border border-border rounded-xl p-5 cursor-pointer transition-all duration-200 shadow-sm hover:shadow-md;
+  }
+  .lb-row {
+    @apply flex items-center gap-4 py-3.5 border-b border-cream last:border-0;
+  }
+
+  .nav-link {
+    @apply text-xs font-semibold uppercase tracking-widest py-1.5 transition-all duration-200 bg-transparent cursor-pointer border-0 border-b-2 border-transparent text-gray-400;
+  }
+  .nav-link:hover {
+    @apply text-white;
+  }
+  .nav-link.active {
+    @apply text-white border-b-2 border-gold;
+  }
+
+  .modal-overlay {
+    @apply fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4;
+  }
+  .modal-box {
+    @apply bg-white rounded-2xl p-8 max-w-lg w-full max-h-[90vh] overflow-y-auto shadow-2xl;
+  }
+
+  .toast {
+    @apply bg-ink text-white px-5 py-3 rounded-lg text-sm font-medium shadow-xl max-w-xs;
+  }
+  .toast-success {
+    @apply bg-green-900 border-l-4 border-green-400;
+  }
+  .toast-error {
+    @apply bg-red-900 border-l-4 border-red-400;
+  }
+
+  .score-row {
+    @apply flex justify-between items-center py-2 border-b border-cream text-sm last:border-0;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(120%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes slideUp {
+  from {
+    transform: translateY(24px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-slide-in {
+  animation: slideIn 0.3s ease;
+}
+.animate-fade-in {
+  animation: fadeIn 0.2s ease;
+}
+.animate-slide-up {
+  animation: slideUp 0.25s ease;
+}
